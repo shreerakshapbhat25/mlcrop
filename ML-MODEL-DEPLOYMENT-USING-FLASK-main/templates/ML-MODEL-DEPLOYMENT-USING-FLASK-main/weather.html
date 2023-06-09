@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Forecast</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+    img{
+      size: 200 px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .weather {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .weather .day {
+      font-weight: bold;
+    }
+
+    .weather .temperature {
+      font-weight: bold;
+    }
+
+    .weather .description {
+      color: #666;
+    }
+    .image-container {
+      width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .image-container img {
+       width: 700px;
+      height: auto;
+      border-radius: 0px;
+      box-shadow: 0 0 0px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Weather Forecast</h1>
+    <div id="weather-container"></div>
+
+    <script>
+      // Replace 'YOUR_API_KEY' with your actual API key from OpenWeatherMap
+     
+      const apiKey = '';
+      const city = 'Bangalore';
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+      
+
+      // Fetch weather forecast data from the API
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          const weatherContainer = document.getElementById('weather-container');
+
+          // Create weather forecast elements
+          const weatherDiv = document.createElement('div');
+          weatherDiv.classList.add('weather');
+
+          const dayDiv = document.createElement('div');
+          dayDiv.classList.add('day');
+          dayDiv.textContent = 'Today';
+
+          const temperatureDiv = document.createElement('div');
+          temperatureDiv.classList.add('temperature');
+          temperatureDiv.textContent = `${Math.round(data.main.temp - 273.15)}°C`;
+
+          const descriptionDiv = document.createElement('div');
+          descriptionDiv.classList.add('description');
+          descriptionDiv.textContent = data.weather[0].description;
+
+          // Append weather forecast elements to the container
+          weatherDiv.appendChild(dayDiv);
+          weatherDiv.appendChild(temperatureDiv);
+          weatherDiv.appendChild(descriptionDiv);
+          weatherContainer.appendChild(weatherDiv);
+        })
+        .catch(error => {
+          console.error('Error fetching weather forecast:', error);
+        });
+    </script>
+  </div>
+  <div class="image-container">
+    <img src="C:\Users\Shreeraksha\Desktop\ML-MODEL-DEPLOYMENT-USING-FLASK-main (1)\ML-MODEL-DEPLOYMENT-USING-FLASK-main\templates\cloud.jpg">
+  </div>
+</body>
+</html>
